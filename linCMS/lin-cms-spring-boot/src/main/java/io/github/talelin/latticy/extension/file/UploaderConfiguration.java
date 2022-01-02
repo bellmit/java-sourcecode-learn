@@ -12,10 +12,10 @@ import org.springframework.core.annotation.Order;
  * @author Juzi@TaleLin
  * @author colorful@TaleLin
  */
-@Configuration(proxyBeanMethods = false)
+@Configuration(proxyBeanMethods = false)  // 配置类
 public class UploaderConfiguration {
     /**
-     * @return 本地文件上传实现类
+     * @return 本地文件上传实现类 （默认，如果有其他实现就不使用这个实现）
      */
     @Bean
     @Order
@@ -23,4 +23,11 @@ public class UploaderConfiguration {
     public Uploader uploader(){
         return new LocalUploader();
     }
+
+
+    // 七牛
+    @Bean
+    public Uploader qiniuUpLoader(){return new QiniuUploader();}
+
+
 }

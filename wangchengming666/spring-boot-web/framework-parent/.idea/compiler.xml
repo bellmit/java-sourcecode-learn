@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="framework-tools" />
+        <module name="framework-common" />
+        <module name="framework" />
+        <module name="framework-client" />
+        <module name="framework-generator" />
+        <module name="framework-core" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="framework" target="1.8" />
+      <module name="framework-client" target="1.8" />
+      <module name="framework-common" target="1.8" />
+      <module name="framework-core" target="1.8" />
+      <module name="framework-generator" target="1.8" />
+      <module name="framework-parent" target="1.8" />
+      <module name="framework-tools" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="framework" options="-extdirs src\main\webapp\WEB-INF\lib" />
+      <module name="framework-client" options="-extdirs src\main\webapp\WEB-INF\lib" />
+      <module name="framework-common" options="-extdirs src\main\webapp\WEB-INF\lib" />
+      <module name="framework-core" options="-extdirs src\main\webapp\WEB-INF\lib" />
+      <module name="framework-generator" options="-extdirs src\main\webapp\WEB-INF\lib" />
+      <module name="framework-tools" options="-extdirs src\main\webapp\WEB-INF\lib" />
+    </option>
+  </component>
+</project>
