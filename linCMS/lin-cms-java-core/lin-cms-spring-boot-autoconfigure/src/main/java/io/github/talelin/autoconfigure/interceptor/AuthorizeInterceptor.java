@@ -58,14 +58,27 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         if (handler instanceof HandlerMethod) {
+            // io.github.talelin.latticy.controller.v1.BookController#getBooks()
             HandlerMethod handlerMethod = (HandlerMethod) handler;
+
+            // public java.util.List io.github.talelin.latticy.controller.v1.BookController.getBooks()
             Method method = handlerMethod.getMethod();
+
+            // getBooks
             String methodName = method.getName();
+
+            // io.github.talelin.latticy.controller.v1.BookController
             String className = method.getDeclaringClass().getName();
+
+            // io.github.talelin.latticy.controller.v1.BookController#getBooks
             String identity = className + "#" + methodName;
+
+            // 从 PermissionMetaCollector 中以 identity 为 key 取 value
             MetaInfo meta = permissionMetaCollector.findMeta(identity);
             // AdminMeta adminMeta = method.getAnnotation(AdminMeta.class);
             // PermissionMeta meta = method.getAnnotation(PermissionMeta.class);
+
+
             // 考虑两种情况，1. 有 meta；2. 无 meta
             if (meta == null) {
                 // 无meta的话，adminRequired和loginRequired
