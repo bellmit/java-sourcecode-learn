@@ -56,6 +56,7 @@ public class CommonConfiguration {
     /**
      * 记录每个被 @PermissionMeta 记录的信息，在beans的后置调用
      *
+     * 将 PermissionMetaCollecter 配置进 ioc 中，在 bean 加载后进行调用
      * @return PermissionMetaCollector
      */
     @Bean

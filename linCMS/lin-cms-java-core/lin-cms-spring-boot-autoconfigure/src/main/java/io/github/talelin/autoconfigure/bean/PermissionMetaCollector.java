@@ -31,8 +31,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class PermissionMetaCollector implements BeanPostProcessor {
 
+    // 按照每个方法来存注解
     private Map<String, MetaInfo> metaMap = new ConcurrentHashMap<>();
 
+    // 按照每个 类 来存储注解
     private Map<String, Map<String, Set<String>>> structuralMeta = new ConcurrentHashMap<>();
 
     public PermissionMetaCollector() {
@@ -43,6 +45,7 @@ public class PermissionMetaCollector implements BeanPostProcessor {
         return bean;
     }
 
+    // 在启动 springboot 时就会进行加载
     /**
      * 扫描注解信息，并提取
      *
@@ -58,7 +61,7 @@ public class PermissionMetaCollector implements BeanPostProcessor {
             return bean;
         }
 
-        Method[] methods = ReflectionUtils.getAllDeclaredMethods(bean.getClass());
+        Method[] methods = ReflectionUtils.getAllDeclaredMethods(bean.getClass());  // 获取所有的 bean
         for (Method method : methods) {
             AdminMeta adminMeta = AnnotationUtils.findAnnotation(method, AdminMeta.class);
             if (adminMeta != null && adminMeta.mount()) {
@@ -85,35 +88,66 @@ public class PermissionMetaCollector implements BeanPostProcessor {
             PermissionMeta permissionMeta = AnnotationUtils.findAnnotation(method,
                     PermissionMeta.class);
             if (permissionMeta != null && permissionMeta.mount()) {
-                String permission = StringUtils.isEmpty(permissionMeta.value())
+                String permission = StringUtils.isEmpty(permissionMeta.value())   // 例：查询日志记录的用户
                         ? permissionMeta.permission() : permissionMeta.value();
-                UserLevel level = AnnotationUtil.findRequired(method.getAnnotations());
+
+                // 通过另一个注解 Required 来获取当前用户的等级
+                UserLevel level = AnnotationUtil.findRequired(method.getAnnotations()); // method 指注解所在的方法，例如 LogController
                 putOneMetaInfo(method, permission, permissionMeta.module(), level);
             }
         }
         return bean;
     }
 
+    // 将获取到的 PermissionMeta 注解中的信息放入 map 中
+
+    /**
+     *
+     * @param method 发现注解的 bean
+     * @param permission permission.value
+     * @param module 暂不知 但是是一个布尔值的值
+     * @param userLevel 用户的等级，对应的就是用户的权限
+     */
     private void putOneMetaInfo(Method method, String permission, String module,
                                 UserLevel userLevel) {
         if (StringUtils.isEmpty(module)) {
             PermissionModule permissionModule = AnnotationUtils.findAnnotation(
-                    method.getDeclaringClass(), PermissionModule.class);
-            if (permissionModule != null) {
+                    method.getDeclaringClass(), PermissionModule.class);   // 调用 spring 中的方法 获取注解的信息
+            if (permissionModule != null) { // 判断注解是否为空
+                // 判断注解中的 value 是否为空，如果为空就设置默认值 默认为 true
                 module = StringUtils.isEmpty(permissionModule.value()) ?
                         method.getDeclaringClass().getName() : permissionModule.value();
             }
         }
+
+        // getUsers
         String methodName = method.getName();
+
+        // io.github.talelin.latticy.controller.cms.LogController$$EnhancerBySpringCGLIB$$41041f22
         String className = method.getDeclaringClass().getName();
-        String identity = className + "#" + methodName;
+
+        // io.github.talelin.latticy.controller.cms.LogController$$EnhancerBySpringCGLIB$$41041f22#getUsers
+        String identity = className + "#" + methodName; // 类的全路径 # 方法名
+
+        // 拼接 metainfo
+        // MetaInfo
+        // {permission='查询日志记录的用户',
+        // module='日志',
+        // identity='io.github.talelin.latticy.controller.cms.LogController$$EnhancerBySpringCGLIB$$41041f22#getUsers',
+        // userLevel=TOURIST}
         MetaInfo metaInfo = new MetaInfo(permission, module, identity, userLevel);
-        metaMap.put(identity, metaInfo);
+        metaMap.put(identity, metaInfo); // 将 PermissionMeta 注解 都存放到 metaMap 这个字典中去
         this.putMetaIntoStructuralMeta(identity, metaInfo);
     }
 
+    /**
+     *
+     * @param identity  类全路径 # 方法
+     * @param meta 上一个方法中拼接的内容
+     */
     private void putMetaIntoStructuralMeta(String identity, MetaInfo meta) {
-        String module = meta.getModule();
+        String module = meta.getModule();  // 获取 PermissionModule 注解中的 value ，这个注解打在类上面
+                                           // 使用这个注解可以省略掉 PermissionMeta 中的 module
         String permission = meta.getPermission();
         // 如果已经存在了该 module，直接向里面增加
         if (structuralMeta.containsKey(module)) {

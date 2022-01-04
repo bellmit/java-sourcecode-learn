@@ -5,7 +5,7 @@ import io.github.talelin.core.enumeration.UserLevel;
 import java.lang.annotation.*;
 
 /**
- * 表示需要权限
+ * 表示需要权限，什么时候设置的权限不知
  *
  * @author pedro@TaleLin
  */
