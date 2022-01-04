@@ -26,8 +26,8 @@ public class UploaderConfiguration {
 
 
     // 七牛
-    @Bean
-    public Uploader qiniuUpLoader(){return new QiniuUploader();}
+/*    @Bean
+    public Uploader qiniuUpLoader(){return new QiniuUploader();}*/
 
 
 }
