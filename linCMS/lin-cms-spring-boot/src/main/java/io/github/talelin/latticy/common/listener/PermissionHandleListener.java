@@ -15,6 +15,8 @@ import java.util.Map;
 
 /**
  * 检查 数据库中存储的内容和 通过全局扫描注解的方式获取到的注解内容是否一致，如果不一致就将数据库中的记录关闭
+ *
+ * ？ 数据库中的数据是什么时候存进去的？
  * @author pedro@TaleLin
  * @author colorful@TaleLin
  * 执行在 全局注解扫描完毕之后

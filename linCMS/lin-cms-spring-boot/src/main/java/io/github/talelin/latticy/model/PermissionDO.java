@@ -30,7 +30,7 @@ public class PermissionDO extends BaseModel implements Serializable {
     private String module;
 
     /**
-     * 0：关闭 1：开启
+     * 0：关闭 1：开启   是否挂载到权限系统中
      */
     private Boolean mount;
 
