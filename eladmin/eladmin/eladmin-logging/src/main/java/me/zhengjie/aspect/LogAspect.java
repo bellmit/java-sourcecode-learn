@@ -34,6 +34,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Zheng Jie
  * @date 2018-11-24
+ *
+ * 在 {@link me.zhengjie.annotation.Log} 中设置切入点
+ * 通过 SpringBoot security 构建了一个方法 {@link SecurityUtils} 获取当前登录用户信息
+ * 在通过 Spring Security 获取当前登录用户信息的时候，使用到了 SpringContext 对象，封装了一个方法 {@link me.zhengjie.utils.SpringContextHolder}
  */
 @Component
 @Aspect
