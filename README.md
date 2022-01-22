@@ -32,10 +32,14 @@ java 相关源码阅读
 - [Snailclimb/spring-security-jwt-guide](https://github.com/Snailclimb/spring-security-jwt-guide)  spring-security + jwt 教程
 
 
-# 脚手架
+# 开发脚手架
 
 - [ueboot/ueboot](https://github.com/ueboot/ueboot) 一个基于spring boot2 + vue2.0+iview3.0的基础开发平台，通过这个平台可以快速完成某些CRUD功能的系统（从前端到后端快速实现）
 
 
 # 博客系统
 [halo-dev/halo](https://github.com/halo-dev/halo) 一款现代化的开源博客/CMS系统。 
+
+
+# 中间件 
+[spring-boot-starter-hbase](https://github.com/SpringForAll/spring-boot-starter-hbase) 自定义的spring-boot的hbase starter，为hbase的query和更新等操作提供简易的api并集成spring-boot的auto configuration （已经很久没有更新了）
