@@ -1,4 +1,6 @@
 # java-sourcecode-learn
+[![wakatime](https://wakatime.com/badge/user/e1661f37-5d4a-4a32-8cda-0f1d65c01658/project/68a30d5d-d003-4206-8728-b45fe3084ca5.svg)](https://wakatime.com/badge/user/e1661f37-5d4a-4a32-8cda-0f1d65c01658/project/68a30d5d-d003-4206-8728-b45fe3084ca5)
+
 java 相关源码阅读
 
 -----
