@@ -46,3 +46,9 @@ java 相关源码阅读
 
 # 中间件 
 [spring-boot-starter-hbase](https://github.com/SpringForAll/spring-boot-starter-hbase) 自定义的spring-boot的hbase starter，为hbase的query和更新等操作提供简易的api并集成spring-boot的auto configuration （已经很久没有更新了）
+
+
+
+
+# 图书配套源码（books/）
+[Java-high-concurrency-core-Programming-Volume-2](https://gitee.com/crazymaker/Java-high-concurrency-core-Programming-Volume-2-source-code.git)
