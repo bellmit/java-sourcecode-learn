@@ -51,4 +51,4 @@ java 相关源码阅读
 
 
 # 图书配套源码（books/）
-[Java-high-concurrency-core-Programming-Volume-2](https://gitee.com/crazymaker/Java-high-concurrency-core-Programming-Volume-2-source-code.git)
+[Java-high-concurrency-core-Programming-Volume-2](https://gitee.com/crazymaker/Java-high-concurrency-core-Programming-Volume-2-source-code.git) 《Java 高并发核心编程（卷2）[Java-high-concurrency-core-Programming-Volume-2](https://gitee.com/crazymaker/Java-high-concurrency-core-Programming-Volume-2-source-code.git) 《Java 高并发核心编程（卷2) ：多线程、锁、JMM、JUC 》by 尼恩 图书配套源码
