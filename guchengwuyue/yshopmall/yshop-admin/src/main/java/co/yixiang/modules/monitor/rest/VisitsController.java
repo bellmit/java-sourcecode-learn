@@ -39,6 +39,8 @@ public class VisitsController {
         return new ResponseEntity<>(visitsService.get(), HttpStatus.OK);
     }
 
+
+    // 查询图表数据 ...
     @GetMapping(value = "/chartData")
     @ApiOperation("查询图表数据")
     public ResponseEntity<Object> getChartData() {
