@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsContractMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsContract">
+        <id column="id" property="id" />
+        <result column="root_org_id" property="rootOrgId" />
+        <result column="version_id" property="versionId" />
+        <result column="contract_no" property="contractNo" />
+        <result column="amount" property="amount" />
+        <result column="contract_type" property="contractType" />
+        <result column="pay_type" property="payType" />
+        <result column="sign_at" property="signAt" />
+        <result column="due_at" property="dueAt" />
+        <result column="sales_unit" property="salesUnit" />
+        <result column="salesperson" property="salesperson" />
+        <result column="tel" property="tel" />
+        <result column="status" property="status" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, root_org_id, version_id, contract_no, amount, contract_type, pay_type, sign_at, due_at, sales_unit, salesperson, tel, status, create_by, create_time, update_by, update_time
+    </sql>
+
+</mapper>

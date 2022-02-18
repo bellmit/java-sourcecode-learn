@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsUser">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="user_name" property="userName" />
+        <result column="password" property="password" />
+        <result column="phone" property="phone" />
+        <result column="root_org_id" property="rootOrgId" />
+        <result column="role_id" property="roleId" />
+        <result column="user_type" property="userType" />
+        <result column="status" property="status" />
+        <result column="is_delete" property="isDelete" />
+        <result column="default_tag_id" property="defaultTagId" />
+        <result column="default_cftag_id" property="defaultCftagId" />
+        <result column="default_cftag_code" property="defaultCftagCode" />
+        <result column="default_tpl_id" property="defaultTplId" />
+        <result column="jpush_id" property="jpushId" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="current_login_time" property="currentLoginTime" />
+        <result column="pc_refresh_at" property="pcRefreshAt" />
+        <result column="app_refresh_at" property="appRefreshAt" />
+        <result column="last_updatepwd_at" property="lastUpdatepwdAt" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, user_name, password, phone, root_org_id, role_id, user_type, status, is_delete, default_tag_id, default_cftag_id, default_cftag_code, default_tpl_id, jpush_id, last_login_time, current_login_time, pc_refresh_at, app_refresh_at, last_updatepwd_at, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectPage" resultType="com.niimbot.system.UserDto">
+        SELECT
+            u.id,
+            u.uid,
+            u.user_name,
+            u.phone,
+            u.create_time,
+            o.org_name,
+            o.industry_id,
+            u.root_org_id,
+            ce.type,
+            ce.version_id,
+            ce.due_at
+        FROM
+            as_user AS u
+            LEFT JOIN as_organization AS o ON u.root_org_id = o.id
+            LEFT JOIN as_contract_expand AS ce ON ce.root_org_id = o.id
+        <where>
+            <if test="em.version_id!=null and em.version_id!=''">
+                and ce.version_id = #{em.version_id}
+            </if>
+            <if test="em.intime!=null and em.intime!=''">
+                and ce.due_at <![CDATA[ >= ]]> #{em.intime[0]}
+                and ce.due_at <![CDATA[ <= ]]> #{em.intime[1]}
+            </if>
+            <if test="em.created_at!=null and em.created_at!=''">
+                and ce.create_time <![CDATA[ >= ]]> #{em.created_at[0]}
+                and ce.create_time <![CDATA[ <= ]]> #{em.created_at[1]}
+            </if>
+            <if test="em.is_only_test!=null and em.is_only_test!=''">
+                and ce.type = 2
+            </if>
+
+            <if test="em.wd!=null and em.wd!=''">
+                and (
+                (u.user_name like concat('%',#{em.wd},'%'))
+                or
+                (u.phone like concat('%',#{em.wd},'%'))
+                or
+                (o.org_name like concat('%',#{em.wd},'%'))
+                )
+            </if>
+        </where>
+        order by u.create_time desc
+    </select>
+
+</mapper>

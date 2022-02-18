@@ -1,0 +1,44 @@
+server:
+  port: 8182
+# spring配置
+spring:
+  profiles:
+    active: local   # 指定启动环境
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: "GMT+8"
+  application:
+    name: asset-demo
+  flyway:
+    enabled: false
+
+# 日志配置
+logging:
+  config: classpath:config/logback-spring.xml
+  file:
+    path: C://asset//platform//log
+
+mybatis-plus:
+  configuration-properties:
+    mapperScanPackage: com.niimbot.asset.**.mapper
+  type-handlers-package: com.niimbot.asset.framework.handle
+
+# Swagger配置
+swagger:
+  enabled: false
+
+# 项目相关配置
+asset:
+  # [saas, local]
+  edition: local
+  # 文件路径
+  uploadPath: C:/uploadPath
+#  upload:
+#      fileMaxSize: 4MB
+#      maxRequestSize: 10MB
+
+# token配置
+token:
+  header: Authorization # 令牌自定义标识
+  secret: niimbot-asset-demo # 令牌密钥
+  expireTime: 30 # 令牌有效期（默认30分钟）

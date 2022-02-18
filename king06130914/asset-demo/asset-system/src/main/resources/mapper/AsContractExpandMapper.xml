@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsContractExpandMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsContractExpand">
+        <id column="id" property="id" />
+        <result column="root_org_id" property="rootOrgId" />
+        <result column="version_id" property="versionId" />
+        <result column="type" property="type" />
+        <result column="enabled_asset_log" property="enabledAssetLog" />
+        <result column="enabled_comsumables" property="enabledComsumables" />
+        <result column="enabled_wechat" property="enabledWechat" />
+        <result column="enabled_acct" property="enabledAcct" />
+        <result column="enabled_custom_code" property="enabledCustomCode" />
+        <result column="expand_tag_num" property="expandTagNum" />
+        <result column="expand_asset_num" property="expandAssetNum" />
+        <result column="expand_consumables_num" property="expandConsumablesNum" />
+        <result column="expand_template_num" property="expandTemplateNum" />
+        <result column="expand_account_num" property="expandAccountNum" />
+        <result column="sign_at" property="signAt" />
+        <result column="due_at" property="dueAt" />
+        <result column="enabled_asset_audit" property="enabledAssetAudit" />
+        <result column="expand_employee_num" property="expandEmployeeNum" />
+        <result column="expand_company_num" property="expandCompanyNum" />
+        <result column="expand_photo_num" property="expandPhotoNum" />
+        <result column="expand_appendix_num" property="expandAppendixNum" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, root_org_id, version_id, type, enabled_asset_log, enabled_comsumables, enabled_wechat, enabled_acct, enabled_custom_code, expand_tag_num, expand_asset_num, expand_consumables_num, expand_template_num, expand_account_num, sign_at, due_at, enabled_asset_audit, expand_employee_num, expand_company_num, expand_photo_num, expand_appendix_num, create_by, create_time, update_by, update_time
+    </sql>
+
+</mapper>

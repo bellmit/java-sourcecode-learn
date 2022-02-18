@@ -1,0 +1,108 @@
+# 项目相关配置
+asset:
+  # [saas, local]
+  edition: local
+  # 文件路径
+  uploadPath: C:/uploadPath
+  # rsa公钥
+  rsaPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmHeJDPH81ZAsC4uvUI9ZhxIIJHaxQ83caN8Oz3WyNk3O++ScFfTD9t8b5HpP/fRUdCiOUag32rKF4CDE2qkIzCpLVor1LZuwh8S4e6hc1EaofvP6TokFzhQFuAO0L+rtB1GnSI75M59BHTbt80Wmp2fSLvtoLYBq+/8twSnm4xQIDAQAB
+  # rsa私钥
+  rsaPrivateKey: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAKYd4kM8fzVkCwLi69Qj1mHEggkdrFDzdxo3w7PdbI2Tc775JwV9MP23xvkek/99FR0KI5RqDfasoXgIMTaqQjMKktWivUtm7CHxLh7qFzURqh+8/pOiQXOFAW4A7Qv6u0HUadIjvkzn0EdNu3zRaanZ9Iu+2gtgGr7/y3BKebjFAgMBAAECgYBBGpMz0MD2Vtgt8GuGv+jkdlSUaAnBzDmQj+xmUNCbh/+kCBfwAcmyllUoC4Drb8VXlUKuhwYj+DJsTaGkEARTRM8BQ6VGmXLDfTW3d8fiUocSRVhlSUMIp6VuiX3oTAV2pWgU5kX2lN1THsaT5iuvzDk3KW4nc9SZzVubnP6oHQJBANsxCwIPCuerIa0SFA0/qQXD6S1YO8hTAuqu0KOh/xUeTkRS2qWHEj1P0wQ1FhJzp8aN/SiOFEB/Qgm6uegXf+MCQQDCAyzJBXW+OKEkZI4NVmKHu/ILYd096ACHNJAKGE+bLDL5Pkh9lEgaZrMtaU+qQ4p+ZS1+NqrOmIgYOk38I/U3AkAD2zQHYD5f3wnjoprJtOIDYPP8QT4kAxndCSBQkKwNMhBMcWy5VswCWiIrQ8fUoUZFXwAiM4W1sMd3plpY8/jjAkEAwJmuSBFnheNp9VrtukfboKvv6WTJ4b8DZzXDGIJx5LXIFK7EAAbIXY0+qwI01+4c+sUumHFkt5us34BiEsEPmQJBAK853Epah2POL7aRdPgL9hKOfu894IK+e2N8LJgY+F5H+nQmWtfrqvE56D2eBLLdfvdJRvnkmuy82NdKv5WuQkQ=
+  googleAuthSecret: 6AVVLELRN4HM5WTK
+  about:
+    site: www.jingchenyun.com
+    qq: 805823705
+    hot-line: 400-860-8800
+    mail: kefu@jc-ai.com
+server:
+  port: 8181 # tomcat端口号
+  tomcat:
+    uri-encoding: UTF-8 # tomcat编码
+    accept-count: 1000
+    max-connections: 20000
+    max-threads: 1000
+    min-spare-threads: 10
+    connection-timeout: 20000
+  compression:
+    enabled: true
+  servlet:
+    session:
+      timeout: 600
+
+# spring配置
+spring:
+  profiles:
+    active: local   # 指定启动环境
+  mvc:
+    servlet:
+      load-on-startup: 100
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: "GMT+8"
+    result-mixin-class: com.niimbot.asset.framework.core.domain.FailureResult
+  application:
+    name: asset-manage
+  http: # 解决http请求编码问题
+    encoding:
+      force: true # request编码问题
+      charset: UTF-8
+      enabled: true
+  main:
+    allow-bean-definition-overriding: true # 解决feign重名
+  flyway:
+    enabled: false
+
+# 日志配置
+logging:
+  config: classpath:config/logback-spring.xml
+  file:
+    path: C://asset//manage//log
+
+mybatis-plus:
+  configuration-properties:
+    mapperScanPackage: com.niimbot.asset.**.mapper
+  type-handlers-package: com.niimbot.asset.framework.handle
+
+# 防止XSS攻击
+xss:
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔/system/*,/monitor/*,/tool/*）
+  excludes:
+  # 匹配链接（多个用逗号分隔 /system/*,/monitor/*,/tool/*）
+  urlPatterns:
+
+# Swagger配置
+swagger:
+  enabled: true
+
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: niimbot-asset-demo
+  # 令牌有效期（单位小时）
+  expireTime: 24
+  # 是否单人登陆
+  kickout: false
+
+#超时设置
+feign:
+  client:
+    config:
+      CASHSTAGE:
+        connectTimeout: 2000
+        readTimeout: 200
+      USERINFO:
+        connectTime: 2000
+        readTimeout: 200
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+ribbon:
+  okhttp:
+    enabled: true

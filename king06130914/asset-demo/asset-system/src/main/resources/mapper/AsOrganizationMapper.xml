@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsOrganizationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsOrganization">
+        <id column="id" property="id" />
+        <result column="industry_id" property="industryId" />
+        <result column="org_name" property="orgName" />
+        <result column="org_code" property="orgCode" />
+        <result column="root_org_id" property="rootOrgId" />
+        <result column="company_id" property="companyId" />
+        <result column="pid" property="pid" />
+        <result column="paths" property="paths" />
+        <result column="level" property="level" />
+        <result column="sort_num" property="sortNum" />
+        <result column="type" property="type" />
+        <result column="created_userid" property="createdUserid" />
+        <result column="is_delete" property="isDelete" />
+        <result column="created_time" property="createdTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, industry_id, org_name, org_code, root_org_id, company_id, pid, paths, level, sort_num, type, created_userid, is_delete, created_time
+    </sql>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsUserExtMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsUserExt">
+        <id column="user_id" property="userId" />
+        <result column="source" property="source" />
+        <result column="customer_id" property="customerId" />
+        <result column="agent_id" property="agentId" />
+        <result column="business_status" property="businessStatus" />
+        <result column="default_material_id" property="defaultMaterialId" />
+        <result column="default_concentration" property="defaultConcentration" />
+        <result column="print_upgrade_status" property="printUpgradeStatus" />
+        <result column="agreement_status" property="agreementStatus" />
+        <result column="guide_status" property="guideStatus" />
+        <result column="type_power" property="typePower" />
+        <result column="area_power" property="areaPower" />
+        <result column="org_power" property="orgPower" />
+        <result column="cf_type_power" property="cfTypePower" />
+        <result column="cf_depot_power" property="cfDepotPower" />
+        <result column="acct_company_power" property="acctCompanyPower" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, source, customer_id, agent_id, business_status, default_material_id, default_concentration, print_upgrade_status, agreement_status, guide_status, type_power, area_power, org_power, cf_type_power, cf_depot_power, acct_company_power
+    </sql>
+
+</mapper>

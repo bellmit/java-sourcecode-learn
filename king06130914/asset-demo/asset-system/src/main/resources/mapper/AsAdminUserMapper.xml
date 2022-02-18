@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsAdminUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsAdminUser">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="password" property="password" />
+        <result column="phone" property="phone" />
+        <result column="role_id" property="roleId" />
+        <result column="user_type" property="userType" />
+        <result column="status" property="status" />
+        <result column="is_delete" property="isDelete" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_name, password, phone, role_id, user_type, status, is_delete, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="queryUserByUsername" resultType="java.util.Map">
+        SELECT au.id,
+               au.user_name,
+               au.password,
+               au.phone,
+               au.is_delete,
+               au.status,
+               au.user_type,
+               au.role_id,
+               ar.role_name,
+               ar.type as role_type
+        FROM as_admin_user au
+             LEFT JOIN as_admin_role ar ON ar.id = au.role_id
+        WHERE au.user_name = #{username}
+    </select>
+    <select id="userFeRoute" resultType="com.niimbot.asset.model.AsAdminNode">
+        SELECT
+            n.fe_route,
+            n.api_routes,
+            n.button_config
+        FROM as_admin_user u
+             LEFT JOIN as_admin_role r ON u.role_id = r.id
+             LEFT JOIN as_admin_role_node rn ON r.id = rn.role_id
+             LEFT JOIN as_admin_node n ON rn.node_id = n.id
+        WHERE u.id = #{currentAdminUserId}
+        union
+            SELECT
+                n.fe_route,
+                n.api_routes,
+                n.button_config
+            FROM as_admin_node as n where n.is_default = 1
+        group by n.id
+    </select>
+
+</mapper>
