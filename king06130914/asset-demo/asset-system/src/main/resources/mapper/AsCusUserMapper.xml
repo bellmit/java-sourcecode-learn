@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsCusUserMapper">
+
+    <cache-ref namespace="com.niimbot.asset.mapper.AsCusUserMapper"/>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="AsCusUserMap" type="com.niimbot.asset.system.model.AsCusUser">
+        <result column="id" property="id"/>
+        <result column="union_id" property="unionId"/>
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="mobile" property="mobile"/>
+        <result column="company_id" property="companyId"/>
+        <result column="data_scope" property="dataScope"/>
+        <result column="status" property="status"/>
+        <result column="source" property="source"/>
+        <result column="business_status" property="businessStatus"/>
+        <result column="agreement_status" property="agreementStatus"/>
+        <result column="guide_status" property="guideStatus"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, union_id, account, password, mobile, company_id, data_scope, status, source, business_status, agreement_status, guide_status, is_delete, create_by, create_time, update_by, update_time, remark
+    </sql>
+
+    <select id="queryUserByAccount" parameterType="string"
+            resultType="com.niimbot.asset.framework.model.CusUserDto">
+        SELECT
+            au.id,
+            au.account,
+            au.union_id,
+            au.password,
+            au.mobile,
+            au.company_id,
+            au.is_delete,
+            au.status,
+            au.data_scope,
+            au.agreement_status,
+            au.guide_status,
+            ace.org_id,
+            ace.email
+        FROM
+            as_cus_user au LEFT JOIN as_cus_employee ace ON au.id = ace.id
+        WHERE (au.account = #{account} or au.mobile = #{account} or ace.email = #{account})
+        AND au.is_delete = 0 AND ace.is_delete = 0
+    </select>
+
+</mapper>

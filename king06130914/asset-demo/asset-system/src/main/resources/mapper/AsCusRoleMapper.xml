@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsCusRoleMapper">
+
+    <cache-ref namespace="com.niimbot.asset.mapper.AsCusRoleMapper"/>
+
+    <select id="getRoleByUserId" resultType="com.niimbot.system.CusRoleDto">
+        SELECT
+            ar.id,
+            ar.role_name,
+            ar.role_code,
+            ar.status
+        FROM
+            as_cus_role ar
+            LEFT JOIN as_user_role ur ON ar.id = ur.role_id
+            LEFT JOIN as_cus_user au ON au.id = ur.user_id
+        WHERE
+            au.id = #{userId}
+            AND au.is_delete = 0
+            AND ar.is_delete = 0
+    </select>
+
+</mapper>

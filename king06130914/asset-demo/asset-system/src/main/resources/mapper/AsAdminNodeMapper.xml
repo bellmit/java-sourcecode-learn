@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niimbot.asset.mapper.AsAdminNodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.niimbot.asset.model.AsAdminNode">
+        <id column="id" property="id" />
+        <result column="menu_name" property="menuName" />
+        <result column="node_name" property="nodeName" />
+        <result column="pid" property="pid" />
+        <result column="paths" property="paths" />
+        <result column="menu_class" property="menuClass" />
+        <result column="menu_icon" property="menuIcon" />
+        <result column="sort_num" property="sortNum" />
+        <result column="fe_route" property="feRoute" />
+        <result column="api_routes" property="apiRoutes" />
+        <result column="api_routes_name" property="apiRoutesName" />
+        <result column="is_menu" property="isMenu" />
+        <result column="button_config" property="buttonConfig" />
+        <result column="is_default" property="isDefault" />
+        <result column="is_admin" property="isAdmin" />
+        <result column="is_config" property="isConfig" />
+        <result column="flag" property="flag" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, menu_name, node_name, pid, paths, menu_class, menu_icon, sort_num, fe_route, api_routes, api_routes_name, is_menu, button_config, is_default, is_admin, is_config, flag, create_by, create_time, update_by, update_time
+    </sql>
+
+    <select id="selectMenuPermsByUserId" parameterType="Long" resultType="String">
+		SELECT DISTINCT
+            n.id
+        FROM
+            as_admin_node n
+            LEFT JOIN as_admin_role_node rn ON n.id = rn.node_id
+            LEFT JOIN as_admin_user u ON u.role_id = rn.role_id
+        WHERE
+            u.is_delete = '0'
+            AND u.STATUS = '1'
+            AND u.id = #{userId}
+	</select>
+    <select id="selectMenuListByUserId" resultType="com.niimbot.asset.model.AsAdminNode">
+        SELECT DISTINCT
+            n.id,
+            n.menu_name,
+            n.menu_code,
+            n.pid,
+            n.fe_route,
+            n.menu_type,
+            n.menu_class,
+            n.menu_icon,
+            n.STATUS,
+            n.perms,
+            n.is_config,
+            n.is_show_children
+        FROM
+            as_admin_node n
+            LEFT JOIN as_admin_role_node rn ON n.id = rn.node_id
+            LEFT JOIN as_admin_user u ON u.role_id = rn.role_id
+        WHERE
+            u.user_id = #{params.userId} and n.is_menu = 1
+        ORDER BY
+            n.order_num asc
+    </select>
+    <select id="getButtonConfig" resultType="java.lang.String">
+        SELECT
+            group_concat(button_config separator '|')
+        FROM
+            as_admin_node
+        where button_config != ''
+    </select>
+
+</mapper>
